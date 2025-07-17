@@ -17,7 +17,7 @@ last_crypto_policy=$(grep -Eo "^\s*CRYPTO_POLICY='[^']+'" ${CONF_FILE} | tail -n
 
 # Copy the last CRYPTO_POLICY value to the local configuration file
 if [[ -n "$last_crypto_policy" ]]; then
-    if ! grep -qe "$correct_value" <<< "$last_crypto_policy"; then
+    if grep -qe "$correct_value" <<< "$last_crypto_policy"; then
         # If an existing -oMACs= is found, replace it
         # Else, append correct_value before the closing apostrophe
         if [[ "$last_crypto_policy" == *"-oMACs="* ]]; then
